@@ -1,32 +1,38 @@
 create database sprint1;
 use sprint1;
 
+-- CRIAÇÃO DA TABELA LOGIN
 create table login (
 idLogin int primary key auto_increment,
-Nome varchar (45) not null,
-Sobrenome varchar (45), 
+usuario varchar (45) not null,
+senha varchar (45) not null,
+cpfCnpj varchar (45),
 email varchar (45) not null unique constraint chkEmail check (email like ('%@%')), 
 telefone varchar (45) not null unique, 
-senha varchar (45) not null,
-ConfirmarSenha varchar (45) not null,
 Chave varchar (45) not null unique
 );
--- 
-insert into login values 
-(null, 'Felipe', 'Janazi', 'felipe@gmail.com', '11 12345-6789', '#Gf123', '#Gf123', 'vesbcunu'),
-(null, 'Lucas', 'Carminatti', 'lucas@gmail.com', '11 12343-5324', 'uef', 'uef', 'HUgy7gw6'),
-(null, 'Matheus', 'Shinkiti', 'matheus@gmail.com', '11 11111-8271', 'fel', 'fel', 'bjsnv'), 
-(null, 'Matheus', 'Souza', 'souza@gmail.com', '11 83523-1234', 'fuuuq', 'fuuuq', 'hgi9823'),
-(null, 'Yuri', 'Martins', 'yuri@gmail.com', '11 32145-9876', 'yuu', 'yuu', 'ienvi032'),
-(null, 'Antônio', 'Felipe', 'antonio@mail.com', '11 54321-5678', 'lmk', 'lmk', 'cvkj9d*&'),
-(null, 'Juan', 'Melo', 'juan@gmail.com', '11 76543-9876', 'juan', 'juan', 'inf8382399*&¨');
 
+-- INSERINDO REGISTROS NA TABELA DE LOGIN
+insert into login values 
+(null, 'Felipe', '123@', '123.123.123-12', 'felipe@sptech', '11 12345-6789', '13tgt5@RF'),
+(null, 'Lucas', 'sfwe!#', '11.111.111/1111-11', 'lucas@sptech', '11 11111-1111', 'BU28ujrfv'),
+(null, 'Matheus', 't53f6', '111.111.111-11', 'matheus@wsptech', '22 22222-2222', '873fg7'),
+(null, 'Matheus', 'iu6gv7', '222.222.222-22', 'shinkiti@sptech', '33 33333-3333', 'eg304g'),
+(null, 'Yuri', 'b78bn', '33.333.333/3333-33', 'yuri@sptech', '44 44444-4444', 'fn83782'),
+(null, 'Antônio', 'h7c6n7h3', '444.444.444-44', 'antonio@sptech', '55 55555-5555', '8n7v6ba'),
+(null, 'Juan', 'nbuytv%F', '555.555.555-55', 'juan@sptech', '66 66666-6666', 'uyb69876');
+
+-- SELECIONANDO TUDO 
 select * from login;
 
-select * from login where nome like 'M%';
+-- SELECIONANDO USUARIOS QUE COMECEM COM M 
+select * from login where usuario like 'M%';
 
+-- SELECIONANDO TELEFONES QUE CONTENHAM O NUMERO 8
 select * from login where telefone like '%8%';
 
+
+-- CRIAÇÃO DA TABELA MAQUINA
 create table maquina (
  idMaquina int primary key auto_increment,
  Nome varchar (45) not null, 
@@ -34,6 +40,8 @@ create table maquina (
  Temperatura float not null, 
  Horario timestamp
  );
+ 
+ -- INSERINDO DADOS
  insert into maquina values 
  (null, 'Máquina de infusão', 'Propileno PP', 60, default),
  (null,  'Máquina de infusão', 'Pom', 92.5, default),
@@ -44,12 +52,17 @@ create table maquina (
  (null,  'Máquina de infusão', 'PA12 Poliamida ou Nylon 12', 95, default),
  (null,  'Máquina de infusão', 'PA66 ou Nylon 66', 100, default);
  
+ -- SELECIONANDO TUDO
  select * from maquina;
  
+ -- SELECIONANDO TUDO ORDENANDO PELOS MATERIAIS CRESCENTE
  select * from maquina order by material; 
  
+ -- SELECIONANDO SOMENTE MATERIAL E TEMPERATURA 
  select material, temperatura from maquina;
  
+ 
+ -- CRIAÇÃO DA TABELA ARDUINO
  create table arduino ( 
  idSensor int primary key auto_increment,
  Material varchar(45) not null unique, 
@@ -58,6 +71,7 @@ create table maquina (
  Horario timestamp 
  );
  
+ -- INSERINDO DADOS NA TABELA
 insert into arduino values 
 (null, 'Propileno PP', 80, 40, default),
 (null, 'Pom', 105, 80, default),
@@ -68,9 +82,11 @@ insert into arduino values
 (null, 'PA12 Poliamida ou Nylon 12', 100, 90, default),
 (null, 'PA66 ou Nylon 66', 120, 80, default);
 
+-- SELECIONANDO TUDO 
 select * from arduino;
 
+-- SELECIONANDO O MATERIAL E A TEMPERATURA MAX SOMENTE DE TEMPERATURAS MAIORES QUE 100
 select material, temperaturaMAX from arduino where TemperaturaMAX > 100;
 
+-- REALIZANDO UMA CONCATENAÇÃO ENTRE MATERIAL E TEMPERATURAS, APRENSETANDO EM SOMENTE UMA FRASE 
 select concat ('O material', ' ', Material, ' ',  'possui temperatura máxima de', ' ', TemperaturaMAX, 'C ', 'e temperatura mínima de', ' ', TemperaturaMIN, 'C') as 'Temperaturas dos materiais' from arduino;
--- nu
