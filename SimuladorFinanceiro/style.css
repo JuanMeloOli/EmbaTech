@@ -1,0 +1,148 @@
+body{
+    background-image: url('FundoSemHeader.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+
+}
+
+.header{
+    border-bottom: #FF5E14 5px solid;
+    background-color: #161619;
+    width: 100vw;
+    height: 11vh;
+    display: flex;
+    justify-content: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo{
+    margin-left: 18vh;
+    width: 18vw;
+    height: 8vh;
+}
+
+.navbar{
+    list-style: none;
+    display: flex;
+    color: #ffffff;
+    margin-left: 13vh;
+    font-size: 22px;
+    align-items: center;
+}
+.li{
+    margin-left: 8vh;
+    cursor: pointer;
+}
+.login{
+    display: flex;
+    margin-left: 26vh;
+    padding: 4px 45px;
+    background-color: #FF5E14;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.calculadora{
+    color: #FF5E14;
+}
+
+
+
+
+
+.financeiro{
+    margin-top: 4vh;
+    text-align: center;
+}
+p{
+    font-weight: 800;
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+
+.input{
+    border: 4px #FF5E14 solid;
+    text-align: center;
+    border-radius: 35px;
+    font-size: 15px
+}
+
+
+.botao{
+    background: linear-gradient(45deg, rgb(168, 2, 2), rgb(252, 64, 2));
+    color: rgb(255, 255, 255);
+    width: 100px;
+    height: 45px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+
+
+.desperdicio{
+    margin-left: 42vh;
+}
+
+.ganhos{
+    margin-left: 18vh;
+}
+
+.container-img{
+    width: 420px;
+    height: 300px;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border: solid 5px black;
+    margin-bottom: 20px;
+    display: inline-block;
+    color: black;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 60vh;
+    background-color: rgb(22, 22, 25, 0.5);
+
+}
+
+.img{
+    padding-top: 15px;
+    width: 200px;
+    height: 180px;
+    
+}
+
+
+.h1Card{
+    font-size: 30px;
+}
+
+
+
+.p{
+    border: solid 5px black;
+    background: linear-gradient(90deg, rgb(168, 2, 2), rgb(252, 64, 2));
+    color: #ffffff;
+    font-size: larger;
+    height: 500px;
+    line-height: 40px;
+}
+
+.taxa{
+    margin-left: 7px;
+    padding: 4px 10px;
+    border-radius: 13px;
+    color: #ffffff;
+    background: linear-gradient(45deg, rgb(168, 2, 2), rgb(252, 64, 2));
+    border: 2px white solid;
+}

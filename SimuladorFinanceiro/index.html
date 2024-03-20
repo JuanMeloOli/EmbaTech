@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <title>Calculadora EmbaTech</title>
+</head>
+
+<body>
+  <div class="header">
+    <img class="logo" src="EmbaTechLogo.png" alt="Logo EmbaTech">
+    <ul class="navbar">
+      <li class="li">Home</li>
+      <li class="li calculadora">Simulador</li>
+      <li class="li">Termometria</li>
+      <li class="login">LOGIN</li>
+    </ul>
+  </div>
+  <div class="financeiro">
+    <p>Quantidade de Embalagens Produzidas (mês)</p>
+    <input type="number" min="0" id="input_qtd_embalagens" placeholder="  quantidade" class="input" />
+    <p>Custo de cada embalagem(R$)</p>
+    <input type="number" min="0" id="input_custo_embalagem" placeholder="  custo" class="input" />
+    <p>Custo do produto(R$)</p>
+    <input type="number" min="0" id="input_custo_produto" placeholder="  custo" class="input" />
+    <p>Quantidade de Máquinas de moldagem</p>
+    <input type="number" min="0" id="input_qtd_maquinas" placeholder="  quantidade" class="input" />
+    <p>Quantidade de horas em utilização das Máquinas(dia)</p>
+    <input type="number" min="0" id="input_horas" placeholder="  horas" class="input" />
+    <p>taxa de produtos desperdiçados<br> --> (opcional) <button onclick="info()" class="taxa">Info</button></p>
+    <input type="number" min="11" id="input_taxa_de_desperdicio" placeholder="  taxa" class="input" />
+    <br /><br />
+    <button onclick="calculadoraFinanceira()" class="botao">CÁLCULO</button> <br /><br />
+  </div>
+  <div id="div_geral" style="display: none">
+
+    <div class="card container-img desperdicio">
+      <img class="img" src="X.png" alt="">
+      <p id="p_desperdicio" class="p"></p>
+    </div>
+
+    <div class="card container-img ganhos">
+      <img class="img" src="CheckMArk.png" alt="">
+      <p id="p_ganhos" class="p"></p>
+    </div>
+
+  </div>
+</body>
+
+</html>
+<script>
+  /*
+    Calculadora Financeira - Lógica para possíveis manutenções                
+
+    Se a taxa_de_desperdicio de desperdicio não for informada ela será 25%
+
+    SEM O SENSOR
+    Quantidade de embalagens * taxa de desperdicio = {Unidades desperdiçadas do produto}
+    Unidades desperdiçadas do produto * custo do produto = {Perda Financeira no Produto}
+    Unidades desperdiçadas do produto * custo da embalagem = {Perda financeira na Embalagem}
+    Quantidade de horas diárias em funcionamento * 30 * Quantidade de máquinas * taxa desperdicio = {Tempo desperdiçado do Maquinário}
+
+    COM O SENSOR
+    Quantidade de embalagens * 0.1 = {Unidades Economizadas do produto}
+    Unidades economizadas do produto * custo do produto = {Ganho Financeiro no produto}
+    Unidades economizadas do produto * custo da embalagem = {Ganho financeiro na Embalagem}
+    Quantidade de horas diárias em funcionamento * 30 * Quantidade de máquinas * 0.1 = {Tempo Economizado do Maquinário}
+
+    */
+
+  function info(params) {
+    alert('Caso o valor da taxa de desperdício não seja informado: \n A taxa será definida como 25% (valor médio de desperdicio de alimentos por conta de embalagens).')
+  }
+
+  function calculadoraFinanceira() {
+    if (div_geral.style.display == "none") {
+      div_geral.style.display = "flex";
+    } else {
+      div_geral.style.display = "none";
+    }
+
+    var qtd_embalagens = Number(input_qtd_embalagens.value);
+    var qtd_maquinas = Number(input_qtd_maquinas.value);
+    var custo_do_produto = Number(input_custo_produto.value);
+    var custo_da_embalagem = Number(input_custo_embalagem.value);
+    var qtd_de_horas_maquinario = Number(input_horas.value);
+    var taxa_de_desperdicio = Number(input_taxa_de_desperdicio.value) /100
+
+    if (taxa_de_desperdicio == 0) {
+      taxa_de_desperdicio = 0.25
+    }
+
+
+    var desperdicio_no_produto = qtd_embalagens * taxa_de_desperdicio;
+    var perda_financeira_no_produto = (desperdicio_no_produto * custo_do_produto).toFixed(2);
+    var perda_financeira_na_embalagem = (desperdicio_no_produto * custo_da_embalagem).toFixed(2);
+    var tempo_perdido_no_maquinario = qtd_de_horas_maquinario * 30 * qtd_maquinas * taxa_de_desperdicio;
+
+    var produtos_economizados = qtd_embalagens * 0.1;
+    var economia_financeira_no_produto = (produtos_economizados * custo_do_produto).toFixed(2);
+    var economia_financeira_na_embalagem = (produtos_economizados * custo_da_embalagem).toFixed(2);
+    var ganhoTempoMaquinario = qtd_de_horas_maquinario * 30 * qtd_maquinas * 0.1;
+
+    p_desperdicio.innerHTML = `
+        <h1 class="h1Card">Pré Embatech: </h1>
+        <hr>
+        Unidades desperdiçadas <br> do  Produto(s): ${desperdicio_no_produto} <br> <hr>
+        Perda financeira no <br> produto: R$ ${perda_financeira_no_produto} <br> <hr>
+        Perda financeira nas <br> embalagens: R$ ${perda_financeira_na_embalagem} <br> <hr>
+        Carga Horária perdida no <br> Máquinario: ${tempo_perdido_no_maquinario} horas (mês) <br>
+        `;
+
+
+
+    p_ganhos.innerHTML = `
+        <h1 class="h1Card">Pós Embatech:</h1>
+        <hr>
+        Unidades desperdiçadas <br> do  Produto(s): ${produtos_economizados}  <br> <hr>
+        Perda financeira no <br> produto: R$ ${economia_financeira_no_produto} <br> <hr>
+        Perda financeira nas <br> embalagens: R$ ${economia_financeira_na_embalagem} <br> <hr>
+        Carga Horária perdida no <br> Máquinario: ${ganhoTempoMaquinario} horas (mês) <br>`;
+  }
+</script>
